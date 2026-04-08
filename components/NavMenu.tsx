@@ -5,7 +5,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
@@ -42,14 +41,14 @@ export function NavMenu({items}: NavMenuProps) {
           size="icon"
           aria-label="Open navigation menu"
         >
-          <Menu className="size-5" />
+          <Menu className="size-6" />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Menu</DrawerTitle>
-        </DrawerHeader>
-        <nav className="flex flex-col gap-1 px-4 pb-6">
+        {/* Visually hidden but kept for screen readers — vaul/Radix
+            dialogs require an accessible title. */}
+        <DrawerTitle className="sr-only">Menu</DrawerTitle>
+        <nav className="flex flex-col gap-1 px-4 py-6">
           {items.map((item) => (
             <DrawerClose asChild key={item.key}>
               <Link
