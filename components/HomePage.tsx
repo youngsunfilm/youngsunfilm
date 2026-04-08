@@ -1,4 +1,5 @@
 import {Header} from '@/components/Header'
+import {HomeCarousel} from '@/components/HomeCarousel'
 import {OptimisticSortOrder} from '@/components/OptimisticSortOrder'
 import {ProjectListItem} from '@/components/ProjectListItem'
 import type {HomePageQueryResult} from '@/sanity.types'
@@ -13,7 +14,7 @@ export interface HomePageProps {
 
 export async function HomePage({data}: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const {overview = [], showcaseProjects = [], title = ''} = data ?? {}
+  const {carouselImages = [], overview = [], showcaseProjects = [], title = ''} = data ?? {}
 
   const dataAttribute =
     data?._id && data?._type
@@ -37,6 +38,12 @@ export async function HomePage({data}: HomePageProps) {
           description={overview}
         />
       )}
+      {/* Carousel */}
+      <HomeCarousel
+        images={carouselImages}
+        id={data?._id ?? null}
+        type={data?._type ?? null}
+      />
       {/* Showcase projects */}
       <div className="mx-auto max-w-[100rem] rounded-md border">
         <OptimisticSortOrder id={data?._id} path={'showcaseProjects'}>
