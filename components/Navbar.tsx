@@ -37,7 +37,7 @@ export function Navbar(props: NavbarProps) {
 
   return (
     <header
-      className="sticky top-0 z-10 flex items-center bg-white/80 px-1 py-1 backdrop-blur md:px-12 md:py-2 lg:px-24"
+      className="sticky top-0 z-10 flex items-center bg-white/80 px-0 py-0 backdrop-blur md:px-12 md:py-2 lg:px-24"
       data-sanity={dataAttribute?.('menuItems')}
     >
       <NavMenu items={navMenuItems} />
