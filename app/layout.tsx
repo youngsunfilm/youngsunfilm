@@ -1,5 +1,6 @@
 import './globals.css'
-import {IBM_Plex_Mono, Inter, PT_Serif} from 'next/font/google'
+import {IBM_Plex_Mono, Inter, PT_Serif, Geist } from 'next/font/google'
+import { cn } from "@/lib/utils";
 
 const serif = PT_Serif({
   variable: '--font-serif',
@@ -7,12 +8,7 @@ const serif = PT_Serif({
   subsets: ['latin'],
   weight: ['400', '700'],
 })
-const sans = Inter({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  // @todo: understand why extrabold (800) isn't being respected when explicitly specified in this weight array
-  // weight: ['500', '700', '800'],
-})
+const geist = Geist({subsets:['latin'],variable:'--font-sans'})
 const mono = IBM_Plex_Mono({
   variable: '--font-mono',
   subsets: ['latin'],
@@ -21,7 +17,7 @@ const mono = IBM_Plex_Mono({
 
 export default async function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en" className={`${mono.variable} ${sans.variable} ${serif.variable}`}>
+    <html lang="en" className={cn(mono.variable, serif.variable, "font-sans", geist.variable)}>
       <body>{children}</body>
     </html>
   )

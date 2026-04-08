@@ -56,13 +56,13 @@ export function HomeCarousel({images, id, type}: HomeCarouselProps) {
         {resolved.map((item, index) => (
           <div
             key={item.key}
-            className="relative aspect-[3/2] w-[80%] shrink-0 snap-start overflow-hidden rounded-md md:w-[45%] lg:w-[32%]"
+            className="relative aspect-[3/2] w-full shrink-0 snap-start overflow-hidden rounded-md"
           >
             <Image
               src={item.url}
               alt={item.alt}
               fill
-              sizes="(min-width: 1024px) 32vw, (min-width: 768px) 45vw, 80vw"
+              sizes="100vw"
               className="object-cover"
               priority={index === 0}
             />

@@ -1,0 +1,191 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1775653969220,
+  "projectRoot": "/Users/selloumstudio/Codes/youngsunfilm",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "tsconfig.json"
+        ]
+      }
+    ],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "16.2.2",
+        "category": "fullstack"
+      },
+      {
+        "name": "react",
+        "version": "19.2.4",
+        "category": "frontend"
+      },
+      {
+        "name": "react-dom",
+        "version": "19.2.4",
+        "category": "frontend"
+      }
+    ],
+    "packageManager": "pnpm",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": "pnpm build",
+    "testCommand": null,
+    "lintCommand": "pnpm lint",
+    "devCommand": "pnpm dev",
+    "scripts": {
+      "analyze": "next experimental-analyze --serve",
+      "build": "next build --turbopack && sanity manifest extract --path public/studio/static",
+      "predev": "npm run typegen",
+      "dev": "next --turbopack",
+      "format": "npx prettier --write . --ignore-path .gitignore",
+      "lint": "eslint .",
+      "lint:fix": "npm run format && npm run lint -- --fix",
+      "start": "next start",
+      "type-check": "next typegen && tsc --noEmit",
+      "typegen": "sanity schema extract && sanity typegen generate"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "app",
+      "components",
+      "docs"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "app": {
+      "path": "app",
+      "purpose": "Application code",
+      "fileCount": 5,
+      "lastAccessed": 1775653969199,
+      "keyFiles": [
+        "apple-icon.jpg",
+        "globals.css",
+        "icon.jpg",
+        "layout.tsx",
+        "logo.jpg"
+      ]
+    },
+    "components": {
+      "path": "components",
+      "purpose": "UI components",
+      "fileCount": 8,
+      "lastAccessed": 1775653969199,
+      "keyFiles": [
+        "CustomPortableText.tsx",
+        "Header.tsx",
+        "HomePage.tsx",
+        "ImageBox.tsx",
+        "Navbar.tsx"
+      ]
+    },
+    "docs": {
+      "path": "docs",
+      "purpose": "Documentation",
+      "fileCount": 0,
+      "lastAccessed": 1775653969200,
+      "keyFiles": []
+    },
+    "sanity": {
+      "path": "sanity",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1775653969205,
+      "keyFiles": []
+    },
+    "styles": {
+      "path": "styles",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1775653969205,
+      "keyFiles": [
+        "index.css"
+      ]
+    },
+    "types": {
+      "path": "types",
+      "purpose": "Type definitions",
+      "fileCount": 1,
+      "lastAccessed": 1775653969205,
+      "keyFiles": [
+        "index.ts"
+      ]
+    },
+    "app/api": {
+      "path": "app/api",
+      "purpose": "API routes",
+      "fileCount": 0,
+      "lastAccessed": 1775653969206,
+      "keyFiles": []
+    },
+    "sanity/lib": {
+      "path": "sanity/lib",
+      "purpose": "Library code",
+      "fileCount": 6,
+      "lastAccessed": 1775653969206,
+      "keyFiles": [
+        "api.ts",
+        "client.ts",
+        "live.ts"
+      ]
+    },
+    "sanity/schemas": {
+      "path": "sanity/schemas",
+      "purpose": "Schema definitions",
+      "fileCount": 0,
+      "lastAccessed": 1775653969207,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "components/HomeCarousel.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1775656749759,
+      "type": "file"
+    },
+    {
+      "path": "sanity/schemas/documents/page.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775657041738,
+      "type": "file"
+    },
+    {
+      "path": "sanity/schemas/singletons/settings.ts",
+      "accessCount": 1,
+      "lastAccessed": 1775657042292,
+      "type": "file"
+    },
+    {
+      "path": "components/Navbar.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1775657042669,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
