@@ -26,7 +26,11 @@ export function HomeCarousel({images, id, type}: HomeCarouselProps) {
   const resolved = images
     .map((image) => {
       if (!image) return null
-      const url = urlForImage(image as unknown as SanityImage)?.width(1600).height(1066).url()
+      const url = urlForImage(image as unknown as SanityImage)
+        ?.width(1600)
+        .height(1066)
+        .fit('crop')
+        .url()
       if (!url) return null
       return {
         key: image._key,
