@@ -47,27 +47,37 @@ export function HomeCarousel({images, id, type}: HomeCarouselProps) {
       ? createDataAttribute({baseUrl: studioUrl, id, type})
       : null
 
+  // Duplicate the slide list so the autoplay client can wrap seamlessly:
+  // when the scroller crosses the original set's width, it instantly
+  // subtracts that width — the user sees no jump because the second half
+  // is visually identical to the first.
+  const loopedSlides = resolved.length > 1 ? [...resolved, ...resolved] : resolved
+
   return (
     <section
       aria-label="Featured images"
       data-sanity={dataAttribute?.(['carouselImages'])}
     >
       <HomeCarouselAutoplay itemCount={resolved.length}>
-        {resolved.map((item, index) => (
-          <div
-            key={item.key}
-            className="relative aspect-[3/2] w-full shrink-0 snap-start overflow-hidden rounded-md"
-          >
-            <Image
-              src={item.url}
-              alt={item.alt}
-              fill
-              sizes="100vw"
-              className="object-cover"
-              priority={index === 0}
-            />
-          </div>
-        ))}
+        {loopedSlides.map((item, index) => {
+          const isClone = index >= resolved.length
+          return (
+            <div
+              key={`${item.key}-${isClone ? 'b' : 'a'}`}
+              aria-hidden={isClone || undefined}
+              className="relative aspect-[3/2] w-full shrink-0 snap-start overflow-hidden rounded-md"
+            >
+              <Image
+                src={item.url}
+                alt={isClone ? '' : item.alt}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority={index === 0}
+              />
+            </div>
+          )
+        })}
       </HomeCarouselAutoplay>
     </section>
   )

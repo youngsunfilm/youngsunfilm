@@ -36,6 +36,13 @@ export function HomeCarouselAutoplay({
     if (prefersReducedMotion) return
 
     let paused = false
+    // Timestamp of the most recent programmatic scrollBy/scrollTo. Smooth
+    // scrolling fires many `scroll` events as it animates, so a one-shot
+    // boolean flag isn't enough — the trailing events would look like user
+    // scrolls and incorrectly pause autoplay. We treat any scroll event
+    // arriving within PROGRAMMATIC_WINDOW_MS of a programmatic call as ours.
+    let lastProgrammaticAt = 0
+    const PROGRAMMATIC_WINDOW_MS = 800
     let userScrollIdleTimer: ReturnType<typeof setTimeout> | null = null
 
     const step = () => {
@@ -44,12 +51,18 @@ export function HomeCarouselAutoplay({
       if (!firstChild) return
       const gap = parseFloat(getComputedStyle(scroller).columnGap || '0') || 0
       const stepPx = firstChild.offsetWidth + gap
-      const atEnd = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 1
-      if (atEnd) {
-        scroller.scrollTo({left: 0, behavior: 'auto'})
-      } else {
-        scroller.scrollBy({left: stepPx, behavior: 'smooth'})
+
+      // Seamless infinite loop: the parent renders the slides twice. When
+      // we cross the midpoint, instantly subtract one set's width — invisible
+      // to the user because the duplicated half is pixel-identical to the
+      // first half. Then proceed with the normal smooth advance.
+      const halfWidth = scroller.scrollWidth / 2
+      if (halfWidth > 0 && scroller.scrollLeft >= halfWidth) {
+        lastProgrammaticAt = Date.now()
+        scroller.scrollTo({left: scroller.scrollLeft - halfWidth, behavior: 'auto'})
       }
+      lastProgrammaticAt = Date.now()
+      scroller.scrollBy({left: stepPx, behavior: 'smooth'})
     }
 
     const tick = setInterval(step, intervalMs)
@@ -61,6 +74,9 @@ export function HomeCarouselAutoplay({
       paused = false
     }
     const onScroll = () => {
+      // Ignore scroll events that we triggered ourselves. Only react to
+      // genuine user-initiated scrolls.
+      if (Date.now() - lastProgrammaticAt < PROGRAMMATIC_WINDOW_MS) return
       paused = true
       if (userScrollIdleTimer) clearTimeout(userScrollIdleTimer)
       userScrollIdleTimer = setTimeout(() => {
