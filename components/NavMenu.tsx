@@ -41,7 +41,6 @@ export function NavMenu({items}: NavMenuProps) {
           variant="ghost"
           size="icon"
           aria-label="Open navigation menu"
-          className="-ml-1.5"
         >
           <Menu className="size-5" />
         </Button>
