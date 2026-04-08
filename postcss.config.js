@@ -1,8 +1,7 @@
-// If you want to use other PostCSS plugins, see the following:
-// https://tailwindcss.com/docs/using-with-preprocessors
+// Tailwind v4 ships its own PostCSS plugin and has built-in vendor prefixing
+// (autoprefixer is no longer needed).
 module.exports = {
   plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
+    '@tailwindcss/postcss': {},
   },
 }
