@@ -70,6 +70,29 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'carouselImages',
+      title: 'Home carousel images',
+      description:
+        'Images that auto-advance in a horizontal strip between the intro and showcase projects.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'image',
+          options: {hotspot: true},
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alt text',
+              description: 'Describe the image for screen readers.',
+              validation: (rule) => rule.required(),
+            }),
+          ],
+        }),
+      ],
+      validation: (rule) => rule.max(20),
+    }),
   ],
   preview: {
     select: {
