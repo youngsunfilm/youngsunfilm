@@ -281,6 +281,15 @@ export type Home = {
   showcaseProjects?: Array<{
     _key: string;
   } & ProjectReference>;
+  carouselImages?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -384,7 +393,7 @@ export type AllSanitySchemaTypes = Timeline | SanityImageAssetReference | Milest
 
 // Source: sanity/lib/queries.ts
 // Variable: homePageQuery
-// Query: *[_type == "home"][0]{    _id,    _type,    overview,    showcaseProjects[]{      _key,      ...@->{        _id,        _type,        coverImage,        overview,        "slug": slug.current,        tags,        title,      }    },    title,  }
+// Query: *[_type == "home"][0]{    _id,    _type,    overview,    carouselImages[]{      ...,    },    showcaseProjects[]{      _key,      ...@->{        _id,        _type,        coverImage,        overview,        "slug": slug.current,        tags,        title,      }    },    title,  }
 export type HomePageQueryResult = {
   _id: string;
   _type: "home";
@@ -404,6 +413,15 @@ export type HomePageQueryResult = {
     }>;
     level?: number;
     _type: "block";
+    _key: string;
+  }> | null;
+  carouselImages: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
     _key: string;
   }> | null;
   showcaseProjects: Array<{
@@ -615,7 +633,7 @@ export type SlugsByTypeQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"home\"][0]{\n    _id,\n    _type,\n    overview,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        \"slug\": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n": HomePageQueryResult;
+    "\n  *[_type == \"home\"][0]{\n    _id,\n    _type,\n    overview,\n    carouselImages[]{\n      ...,\n    },\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        \"slug\": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n": HomePageQueryResult;
     "\n  *[_type == \"page\" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    \"slug\": slug.current,\n  }\n": PagesBySlugQueryResult;
     "\n  *[_type == \"project\" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    \"slug\": slug.current,\n    tags,\n    title,\n  }\n": ProjectBySlugQueryResult;
     "\n  *[_type == \"settings\"][0]{\n    _id,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        \"slug\": slug.current,\n        title\n      }\n    },\n    ogImage,\n  }\n": SettingsQueryResult;
